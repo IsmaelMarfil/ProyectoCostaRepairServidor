@@ -11,7 +11,7 @@ import java.sql.Time;
 import java.util.Date;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "cita")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,6 +27,5 @@ public class Cita {
     private Time hora;
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name="idCliente", foreignKey = @ForeignKey(name = "FK_CITA_CLIENTE"))
     private Cliente cliente;
 }

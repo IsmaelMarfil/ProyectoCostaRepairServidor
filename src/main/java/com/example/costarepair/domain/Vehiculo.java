@@ -2,10 +2,7 @@ package com.example.costarepair.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "vehiculo")
@@ -24,7 +21,7 @@ public class Vehiculo {
     private String modelo;
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name="idCliente", foreignKey = @ForeignKey(name = "FK_VEHICULO_CLIENTE"))
+    @ToString.Exclude
     private Cliente cliente;
 
 }
