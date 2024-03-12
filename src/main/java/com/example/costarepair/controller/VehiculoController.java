@@ -6,9 +6,12 @@ import com.example.costarepair.service.ClienteService;
 import com.example.costarepair.service.VehiculoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -21,14 +24,31 @@ public class VehiculoController {
     public VehiculoController(VehiculoService vehiculoService){
         this.vehiculoService = vehiculoService;
     }
-    @GetMapping({"" , "/"})
+    @GetMapping(value = {"" , "/"}, params = {"!buscar", "!ordenar", "!pagina", "!tamano"})
     public List<Vehiculo> all(){
         log.info("Accediendo a todos los vehiculos");
         return this.vehiculoService.all();
 
     }
+    @GetMapping(value = {"", "/"}, params={"!buscar", "!ordenar"} )
+    public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "pagina", defaultValue = "0") int pagina,
+                                                   @RequestParam(value="tamano", defaultValue = "3") int tamano) {
+        log.info("Accediendo a todos los vehiculos con paginación");
+        Map<String, Object> responseAll = this.vehiculoService.all(pagina, tamano);
+        return ResponseEntity.ok(responseAll);
+    }
 
-    @PostMapping({"", "/"})
+    @GetMapping(value = {"","/"}, params = {"!pagina", "!tamano"})
+    public List<Vehiculo> all(@RequestParam("buscar") Optional<String> buscarOptional,
+                               @RequestParam("ordenar") Optional<String> ordenarOptional
+    ) {
+        log.info("Accediendo a todos los vehiculos con filtro buscar: %s y ordenar: %s" +
+                buscarOptional.orElse("VOID"), ordenarOptional.orElse("VOID")
+       );
+        return this.vehiculoService.allByQueryFiltersStream(buscarOptional, ordenarOptional);
+    }
+
+    @PostMapping(value = {"", "/"})
     public Vehiculo newVehiculo(@RequestBody Vehiculo vehiculo){return this.vehiculoService.save(vehiculo);}
 
     @GetMapping("/{id}")

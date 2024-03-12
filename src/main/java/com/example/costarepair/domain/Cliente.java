@@ -2,10 +2,7 @@ package com.example.costarepair.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,9 +26,11 @@ public class Cliente {
     private String telefono;
     @OneToMany (mappedBy = "cliente")
     @JsonIgnore
+    @ToString.Exclude
     Set<Vehiculo> vehiculos = new HashSet<>();
     @OneToMany (mappedBy = "cliente")
     @JsonIgnore
+    @ToString.Exclude
     Set<Cita> citas = new HashSet<>();
 
 
