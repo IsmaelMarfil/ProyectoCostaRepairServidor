@@ -16,7 +16,7 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/vehiculos")
+@RequestMapping("/v1/api/vehiculos")
 public class VehiculoController {
 
     private final VehiculoService vehiculoService;

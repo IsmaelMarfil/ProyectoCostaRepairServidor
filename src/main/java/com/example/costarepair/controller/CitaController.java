@@ -15,7 +15,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/citas")
+@RequestMapping("/v1/api/citas")
 public class CitaController {
     private final CitaService citaService;
 
